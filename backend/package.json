@@ -1,0 +1,28 @@
+{
+  "name": "runt-productividad-backend",
+  "version": "2.1.0",
+  "private": true,
+  "description": "API del Sistema de Control de Productividad RUNT",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "seed": "node src/db/seed.js",
+    "crear-usuario": "node scripts/crear-usuario.js",
+    "tipos": "node scripts/tipos.js",
+    "desactivar-usuario": "node scripts/desactivar-usuario.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^13.0.3",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "express-rate-limit": "^7.4.1",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2"
+  }
+}

@@ -1,0 +1,647 @@
+/* Archivo: frontend/src/styles/consola.css
+   Diseño de la consola RUNT 2.0 sobre Bootstrap 5. */
+
+:root {
+  --runt-navy: #1f2d6b;
+  --runt-navy-oscuro: #16214f;
+  --runt-magenta: #c2185b;
+  --runt-morado: #8e2a8f;
+  --runt-tan: #8e826f;
+  --runt-fondo: #f3f5fa;
+  --runt-linea: #dde3ee;
+  --runt-azul-tabla: #dbe8fb;
+}
+
+body {
+  background: var(--runt-fondo);
+  font-size: 0.9rem;
+  color: #1d2433;
+}
+
+.runt-boot {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: var(--runt-navy);
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  font-size: 1.4rem;
+}
+
+/* ---------- Estructura con calendario lateral ---------- */
+.runt-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.runt-calendario {
+  width: 0;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #fff;
+  border-right: 1px solid var(--runt-linea);
+  transition: width 0.25s ease;
+}
+
+.runt-calendario.abierto {
+  width: 230px;
+}
+
+.runt-calendario-inner {
+  width: 230px;
+}
+
+.runt-calendario-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 0.8rem;
+  border-bottom: 3px solid var(--runt-magenta);
+  font-weight: 700;
+  color: var(--runt-navy);
+}
+
+.runt-anio {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.runt-anio button {
+  border: 0;
+  background: none;
+  color: var(--runt-navy);
+  font-weight: 700;
+  padding: 0 0.3rem;
+}
+
+.runt-anio button:disabled {
+  opacity: 0.3;
+}
+
+.runt-anio span {
+  border: 1px solid var(--runt-linea);
+  border-radius: 4px;
+  padding: 0.05rem 0.45rem;
+}
+
+.runt-mes {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 0;
+  border-bottom: 1px solid var(--runt-linea);
+  background: #fff;
+  padding: 0.45rem 0.8rem;
+  color: #1d2433;
+  text-align: left;
+}
+
+.runt-mes:hover,
+.runt-mes.abierto {
+  background: #eef3fc;
+}
+
+.runt-mes.abierto {
+  outline: 2px solid #9ec2f5;
+  outline-offset: -2px;
+}
+
+.runt-dias {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+  padding: 0.5rem 0.6rem 0.7rem;
+  border-bottom: 1px solid var(--runt-linea);
+}
+
+.runt-dias .cab {
+  font-size: 0.68rem;
+  text-align: center;
+  color: #6b7488;
+}
+
+.runt-dia {
+  border: 1px solid var(--runt-linea);
+  background: #fff;
+  border-radius: 3px;
+  font-size: 0.75rem;
+  padding: 0.15rem 0;
+}
+
+.runt-dia:hover:not(:disabled) {
+  border-color: var(--runt-navy);
+}
+
+.runt-dia.hoy {
+  outline: 2px solid var(--runt-magenta);
+  outline-offset: -1px;
+}
+
+.runt-dia.sel {
+  background: var(--runt-navy);
+  color: #fff;
+  border-color: var(--runt-navy);
+}
+
+.runt-dia:disabled {
+  opacity: 0.35;
+}
+
+.runt-contenido {
+  flex: 1;
+  min-width: 0;
+  padding: 0.9rem 0.8rem 2rem;
+}
+
+/* ---------- Encabezado ---------- */
+.runt-header {
+  background: var(--runt-navy);
+  color: #fff;
+  border-radius: 4px;
+  border-bottom: 3px solid var(--runt-magenta);
+  padding: 0.9rem 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.9rem;
+}
+
+.runt-menu {
+  border: 0;
+  background: none;
+  color: #fff;
+  font-size: 1.5rem;
+  line-height: 1;
+  padding: 0 0.2rem;
+}
+
+.runt-marca {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.runt-marca small {
+  font-size: 0.75rem;
+  font-weight: 400;
+  opacity: 0.6;
+}
+
+.runt-selector {
+  flex: 1;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.runt-selector label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
+}
+
+.runt-selector select {
+  font-size: 0.82rem;
+  padding: 0.25rem 0.6rem;
+}
+
+.runt-header-derecha {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.runt-dia-badge {
+  background: #fff;
+  color: #1d2433;
+  font-weight: 700;
+  border-radius: 4px;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.82rem;
+}
+
+.runt-estado {
+  border-radius: 4px;
+  padding: 0.3rem 0.8rem;
+  font-weight: 700;
+  font-size: 0.82rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #fff;
+}
+
+.runt-estado::before {
+  content: '';
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.estado-off { background: #6c757d; }
+.estado-turno { background: #1f9d55; }
+.estado-break { background: #f4b400; color: #1d2433; }
+.estado-almuerzo { background: #2a6f97; }
+.estado-fin { background: #dc3545; }
+.estado-inactivo { background: #dc3545; animation: runt-pulso 1.4s ease-in-out infinite; }
+
+@keyframes runt-pulso {
+  50% { opacity: 0.6; }
+}
+
+.runt-sesion {
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: none;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  padding: 0.3rem 0.6rem;
+}
+
+.runt-sesion:hover {
+  border-color: #fff;
+}
+
+/* ---------- Tarjetas ---------- */
+.runt-card {
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(20, 30, 60, 0.08);
+}
+
+.runt-card-head {
+  background: var(--runt-navy);
+  color: #fff;
+  font-weight: 700;
+  padding: 0.6rem 0.9rem;
+  border-radius: 4px 4px 0 0;
+}
+
+.runt-card-body {
+  padding: 0.9rem;
+}
+
+.runt-form label,
+.runt-seccion {
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: #3b4356;
+  margin-bottom: 0.3rem;
+}
+
+.runt-form .form-control,
+.runt-form .form-select {
+  font-size: 0.85rem;
+}
+
+.runt-form .form-control:disabled,
+.runt-form .form-select:disabled {
+  background: #e9ecef;
+}
+
+.btn-runt {
+  background: var(--runt-navy);
+  color: #fff;
+  font-weight: 700;
+  border: 0;
+}
+
+.btn-runt:hover:not(:disabled) {
+  background: var(--runt-navy-oscuro);
+  color: #fff;
+}
+
+.btn-runt:disabled {
+  background: transparent;
+  color: #3b4356;
+  opacity: 1;
+}
+
+.runt-jornada .btn {
+  font-weight: 700;
+  font-size: 0.8rem;
+  border: 1px solid #b9c1d3;
+  color: var(--runt-navy);
+  background: #fff;
+}
+
+.runt-jornada .btn:hover:not(:disabled) {
+  background: #eef3fc;
+}
+
+.runt-jornada .btn:disabled {
+  color: #8a93a6;
+  background: #fff;
+  opacity: 0.8;
+}
+
+.runt-jornada .btn.btn-inicio {
+  background: #343a40;
+  border-color: #343a40;
+  color: #fff;
+}
+
+.runt-jornada .btn.btn-inicio:disabled {
+  background: #adb5bd;
+  border-color: #adb5bd;
+  color: #fff;
+}
+
+.runt-jornada .btn.btn-final:not(:disabled) {
+  border-color: var(--runt-navy);
+}
+
+.runt-break-menu {
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background: #fff;
+  border: 1px solid var(--runt-linea);
+  box-shadow: 0 6px 16px rgba(20, 30, 60, 0.15);
+  border-radius: 4px;
+}
+
+.runt-break-menu button {
+  width: 100%;
+  border: 0;
+  background: #fff;
+  color: #0d6efd;
+  font-weight: 700;
+  padding: 0.55rem;
+}
+
+.runt-break-menu button + button {
+  border-top: 1px solid var(--runt-linea);
+}
+
+.runt-break-menu button:hover {
+  background: #eef3fc;
+}
+
+/* KPI */
+.runt-kpi {
+  border-top: 3px solid var(--runt-navy);
+  padding: 0.8rem 0.9rem;
+  height: 100%;
+}
+
+.runt-kpi-titulo {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #3b4356;
+}
+
+.runt-kpi-valor {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: var(--runt-navy);
+  line-height: 1.2;
+}
+
+.runt-kpi-barra {
+  height: 6px;
+  background: #e5e8ef;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 0.35rem;
+}
+
+.runt-kpi-barra > span {
+  display: block;
+  height: 100%;
+  transition: width 0.4s ease;
+}
+
+.barra-productividad { background: var(--runt-morado); }
+.barra-tiempo { background: var(--runt-tan); }
+
+.runt-kpi-nota {
+  font-size: 0.72rem;
+  color: #6b7488;
+  margin-top: 0.3rem;
+}
+
+.runt-kpi-nota.alerta {
+  color: #dc3545;
+  font-weight: 700;
+}
+
+/* Pestañas */
+.runt-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.7rem;
+}
+
+.runt-tab {
+  border: 0;
+  background: none;
+  color: var(--runt-navy);
+  font-weight: 600;
+  padding: 0.45rem 0.8rem;
+  border-radius: 4px;
+}
+
+.runt-tab.activa {
+  background: var(--runt-navy);
+  color: #fff;
+}
+
+.runt-tabla {
+  font-size: 0.8rem;
+  margin-bottom: 0;
+}
+
+.runt-tabla thead th {
+  background: var(--runt-azul-tabla);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.runt-tabla-wrap {
+  overflow-x: auto;
+  max-height: 460px;
+  overflow-y: auto;
+}
+
+.fila-muerto td {
+  background: #fdecee !important;
+  color: #a1192f;
+}
+
+.runt-grafica {
+  position: relative;
+  height: 320px;
+}
+
+.runt-aviso-lectura {
+  background: #fff7e0;
+  border: 1px solid #f0d78c;
+  border-radius: 4px;
+  padding: 0.5rem 0.8rem;
+  font-size: 0.82rem;
+  margin-bottom: 0.9rem;
+}
+
+/* Visor global */
+.runt-estados-equipo {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.6rem;
+  margin-bottom: 0.8rem;
+}
+
+.runt-estado-card {
+  border-radius: 4px;
+  color: #fff;
+  padding: 0.6rem 0.8rem;
+}
+
+.runt-estado-card span {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  opacity: 0.9;
+}
+
+.runt-estado-card strong {
+  display: block;
+  font-size: 1.8rem;
+  line-height: 1.1;
+}
+
+/* Mensajes flotantes */
+.runt-toast {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 60;
+  max-width: 380px;
+}
+
+/* Aviso de inactividad */
+.inact-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(15, 20, 40, 0.55);
+}
+
+.inact-card {
+  width: min(460px, 100%);
+  background: #fff;
+  border-radius: 6px;
+  border-top: 8px solid #dc3545;
+  padding: 1.5rem;
+}
+
+.inact-card.fase-resumen {
+  border-top-color: var(--runt-navy);
+}
+
+.inact-card h2 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--runt-navy);
+}
+
+/* Login */
+.runt-login {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: var(--runt-navy);
+  padding: 1rem;
+}
+
+.runt-login-card {
+  width: 100%;
+  max-width: 400px;
+  background: #fff;
+  border-radius: 6px;
+  border-top: 6px solid var(--runt-magenta);
+  padding: 2rem;
+}
+
+@media (max-width: 991.98px) {
+  .runt-estados-equipo {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .runt-selector {
+    order: 3;
+    max-width: none;
+    flex-basis: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .estado-inactivo { animation: none; }
+  .runt-calendario { transition: none; }
+}
+
+.nav-pills .nav-link {
+  color: var(--runt-navy);
+  font-weight: 600;
+}
+
+.nav-pills .nav-link.active {
+  background: var(--runt-navy);
+}
+
+/* Menú de descarga de Excel (sin depender del JS de Bootstrap) */
+.runt-excel {
+  position: relative;
+}
+
+.runt-excel-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 4px);
+  z-index: 20;
+  min-width: 190px;
+  background: #fff;
+  border: 1px solid var(--runt-linea);
+  border-radius: 4px;
+  box-shadow: 0 6px 16px rgba(20, 30, 60, 0.15);
+  overflow: hidden;
+}
+
+.runt-excel-menu button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: 0;
+  background: #fff;
+  padding: 0.55rem 0.9rem;
+  font-size: 0.85rem;
+  color: #1d2433;
+}
+
+.runt-excel-menu button + button {
+  border-top: 1px solid var(--runt-linea);
+}
+
+.runt-excel-menu button:hover {
+  background: #eef3fc;
+}
