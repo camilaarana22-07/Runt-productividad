@@ -33,12 +33,14 @@ export default function VisorGlobal({ equipo, cargando, actualizado, esHoy, onVe
   const cuenta = { EN_TURNO: 0, BREAK: 0, ALMUERZO: 0, FINALIZADO: 0, SIN_TURNO: 0 };
   let inactivos = 0;
   let tickets = 0;
-  let meta = 0;
+  let laborados = 0;
+  let disponibles = 0;
   for (const f of filas) {
     cuenta[f.categoria] += 1;
     if (f.inactivo) inactivos += 1;
     tickets += f.metricas?.tickets || 0;
-    meta += f.metricas?.meta_tickets || 0;
+    laborados += f.metricas?.minutos_laborados || 0;
+    disponibles += f.metricas?.minutos_disponibles || 0;
   }
 
   const tarjetas = [
@@ -69,8 +71,8 @@ export default function VisorGlobal({ equipo, cargando, actualizado, esHoy, onVe
 
       <div className="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
         <span className="small">
-          Equipo: <strong>{tickets}</strong> tickets · productividad{' '}
-          <strong>{meta > 0 ? Math.round((tickets / meta) * 1000) / 10 : 0}%</strong>
+          Equipo: <strong>{tickets}</strong> casos · productividad{' '}
+          <strong>{disponibles > 0 ? Math.round(Math.min(100, (laborados / disponibles) * 100) * 10) / 10 : 0}%</strong>
         </span>
         <div className="d-flex align-items-center gap-2">
           <span className="small text-secondary">

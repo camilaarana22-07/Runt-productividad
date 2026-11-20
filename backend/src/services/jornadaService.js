@@ -176,7 +176,7 @@ const cambiarMiJornada = db.transaction((idUsuario, valor) => {
   const redondeadas = Math.round(horas * 100) / 100;
   q.cambiarJornadaUsuario.run(redondeadas, idUsuario);
   q.cambiarJornadaDia.run(redondeadas, idUsuario, ahora().fecha);
-  return { ok: true, horas: redondeadas, mensaje: `Jornada actualizada a ${redondeadas} h. La meta se recalculó.` };
+  return { ok: true, horas: redondeadas, mensaje: `Jornada actualizada a ${redondeadas} h. Los indicadores se recalcularon.` };
 });
 
 function cerrarTiempoMuerto(idUsuario) {
@@ -235,10 +235,9 @@ const detectarTiempoMuertoAuto = db.transaction((idUsuario, fecha, hastaHora) =>
 /**
  * Métricas del día.
  *   pausas (min)       = break real + almuerzo real
- *   meta_tickets       = (jornada − pausas/60) × tickets por hora
  *   efectivo           = tiempo en turno − pausas − tiempo muerto
- *   tiempo_laborado_%  = efectivo / (jornada − pausas)   → avanza de 0 % a 100 % durante el día
- *   productividad_%    = tickets / meta
+ *   productividad_%    = tiempo estándar gestionado / (jornada − pausas)
+ *   tiempo_laborado_%  = tiempo estándar gestionado / jornada
  */
 function calcularMetricas(idUsuario, fecha) {
   const usuario = q.usuario.get(idUsuario);
@@ -306,8 +305,8 @@ function calcularMetricas(idUsuario, fecha) {
   const minutosLaborados = tickets.minutos;               // suma de minutos estándar gestionados
   const jornadaMin = jornada * 60;                       // jornada completa en minutos
   const efectivos = Math.max(0, brutos - pausas - minMuertos);
-  // Meta de tickets del día: (jornada - recesos/60) x 6 tickets/hora
-  const metaTickets = Math.max(0, (jornada - pausas / 60) * config.ticketsPorHora);
+  // Tiempo disponible = jornada menos las pausas (break y almuerzo).
+  const disponibleMin = Math.max(0, jornadaMin - pausas);
 
   // Tickets por hora: desde la hora de INICIO DE TURNO (en punto) hasta el corte
   // (hora actual, o fin de turno si ya cerró). Sin turno iniciado, la tabla va vacía.
@@ -335,10 +334,10 @@ function calcularMetricas(idUsuario, fecha) {
     minutos_laborados: redondear(minutosLaborados),
     jornada_horas: jornada,
     jornada_minutos: jornadaMin,
-    meta_tickets: redondear(metaTickets),
-    // Productividad: tickets registrados sobre la meta de tickets del día.
-    productividad_pct: metaTickets > 0 ? redondear(Math.min(100, (tickets.n / metaTickets) * 100)) : 0,
-    // Tiempo laborado: minutos gestionados repartidos sobre la jornada completa.
+    minutos_disponibles: redondear(disponibleMin),
+    // Productividad: tiempo estándar gestionado sobre el tiempo disponible (jornada menos pausas).
+    productividad_pct: disponibleMin > 0 ? redondear(Math.min(100, (minutosLaborados / disponibleMin) * 100)) : 0,
+    // Tiempo laborado: tiempo estándar gestionado sobre la jornada completa.
     tiempo_laborado_pct: jornadaMin > 0 ? redondear(Math.min(100, (minutosLaborados / jornadaMin) * 100)) : 0,
     tiempo: {
       minutos_brutos: redondear(brutos),
@@ -349,7 +348,7 @@ function calcularMetricas(idUsuario, fecha) {
       minutos_efectivos: redondear(efectivos),
     },
     por_hora: porHora,
-    config: { umbral_inactividad_min: config.umbralInactividadMin, tickets_por_hora: config.ticketsPorHora },
+    config: { umbral_inactividad_min: config.umbralInactividadMin },
   };
 }
 

@@ -3,7 +3,6 @@
 // El backend es la fuente oficial de los KPIs; estas funciones sirven para vista previa,
 // agrupación de estados y formatos.
 
-export const TICKETS_POR_HORA = 6;
 export const UMBRAL_INACTIVIDAD_MIN = 15;
 
 export const EVENT_LABEL = {
@@ -14,14 +13,6 @@ export const EVENT_LABEL = {
   inicio_almuerzo: 'Inicio almuerzo',
   fin_almuerzo: 'Final almuerzo',
 };
-
-const redondear = (n) => Math.round(n * 10) / 10;
-
-/** Meta ajustada = (jornada − descuentos/60) × 6 tickets/hora */
-export function metaAjustada(jornadaHoras, descuentosMin = 0, ticketsPorHora = TICKETS_POR_HORA) {
-  const horas = Number(jornadaHoras) || 0;
-  return Math.max(0, redondear((horas - (Number(descuentosMin) || 0) / 60) * ticketsPorHora));
-}
 
 /** Agrupa el estado del backend en las 4 categorías del visor tipo contact center. */
 export function categoriaEstado(estado) {

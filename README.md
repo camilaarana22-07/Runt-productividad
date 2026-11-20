@@ -124,10 +124,9 @@ Muévalos fuera del proyecto: tenían tablas incompatibles entre sí y los probl
 | Indicador | Fórmula |
 |---|---|
 | Pausas | break real + almuerzo real (de las marcaciones) |
-| Meta ajustada | (jornada − pausas / 60) × 6 tickets/hora |
 | Tiempo efectivo | tiempo en turno − pausas − tiempo muerto |
-| % tiempo laborado | tiempo efectivo / (jornada − pausas); avanza de 0 % a 100 % durante el día |
-| % productividad | tickets / meta ajustada |
+| % tiempo laborado | tiempo estándar gestionado / jornada completa |
+| % productividad | tiempo estándar gestionado / (jornada − pausas) |
 
 ## API
 

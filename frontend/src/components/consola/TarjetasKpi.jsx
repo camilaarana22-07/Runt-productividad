@@ -13,7 +13,7 @@ export default function TarjetasKpi({ metricas }) {
           <div className="runt-kpi-titulo">Productividad</div>
           <div className="runt-kpi-valor">{Math.round(productividad)}%</div>
           <div className="runt-kpi-barra"><span className="barra-productividad" style={{ width: `${Math.min(100, productividad)}%` }} /></div>
-          <div className="runt-kpi-nota">{metricas?.tickets ?? 0} de {metricas?.meta_tickets ?? 0} tickets de la meta</div>
+          <div className="runt-kpi-nota">{formatMinutes(metricas?.minutos_laborados || 0)} de {formatMinutes(metricas?.minutos_disponibles || 0)} disponibles</div>
         </div>
       </div>
       <div className="col-md-4">
